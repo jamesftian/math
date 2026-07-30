@@ -1,0 +1,451 @@
+---
+layout: post
+title: "Nevanlinna-Pick Interpolation and RKHS"
+date: 2026-07-29
+---
+
+<p>The classical Nevanlinna-Pick theorem is often presented as a matrix criterion. Given distinct points</p>
+\[
+z_{1},\ldots,z_{n}\in\mathbb{D}
+\]
+<p>and prescribed values</p>
+\[
+w_{1},\ldots,w_{n}\in\mathbb{D}
+\]
+<p>one asks whether there is a holomorphic function</p>
+\[
+f\colon\mathbb{D}\longrightarrow\mathbb{D}
+\]
+<p>such that</p>
+\[
+f\left(z_{i}\right)=w_{i}.
+\]
+<p>The theorem says that</p>
+\[
+f\;\text{exists}\Longleftrightarrow\left[\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}\right]^{n}_{i,j=1}\geq0.
+\]
+
+<p>The reproducing kernel Hilbert space (RKHS) formulation gives a direct answer. The interpolation values prescribe the action of the adjoint of a multiplier on finitely many reproducing kernels. The Pick matrix is the matrix of the condition that this prescribed action be contractive.</p>
+
+<h3>The Szegő kernel and multiplier eigenvectors</h3>
+
+<p>Let \(H^{2}\) be the Hardy space on the unit disk. Its reproducing kernel is the Szegő kernel</p>
+\[
+k\left(z,w\right)=\frac{1}{1-z\overline{w}}.
+\]
+<p>We write</p>
+\[
+k_{w}=k\left(\cdot,w\right),
+\]
+<p>so that</p>
+\[
+h\left(w\right)=\left\langle k_{w},h\right\rangle _{H^{2}}
+\]
+<p>for every \(h\in H^{2}\).</p>
+
+<p>Suppose that \(f\) is a bounded holomorphic function on \(\mathbb{D}\), and let \(M_{f}\) be multiplication by \(f\) on \(H^{2}\). The kernel functions are eigenvectors for the adjoint multiplier. Indeed,</p>
+\[
+M^{*}_{f}k_{w}=\overline{f\left(w\right)}k_{w}.
+\]
+<p>To see this, let \(h\in H^{2}\). Then</p>
+\[
+\begin{aligned}\left\langle M^{*}_{f}k_{w},h\right\rangle  & =\left\langle k_{w},M_{f}h\right\rangle =f\left(w\right)h\left(w\right)=\left\langle \overline{f\left(w\right)}k_{w},h\right\rangle .\end{aligned}
+\]
+
+<p>Now suppose that we want</p>
+\[
+f\left(z_{i}\right)=w_{i}.
+\]
+<p>Any interpolating function must satisfy</p>
+\[
+M^{*}_{f}k_{z_{i}}=\overline{w_{i}}k_{z_{i}}.
+\]
+<p>The interpolation data therefore prescribe the restriction of \(M^{*}_{f}\) to the finite-dimensional space</p>
+\[
+\mathcal{M}=\text{span}\left\{ k_{z_{1}},\ldots,k_{z_{n}}\right\} \subset H^{2}.
+\]
+
+<p>Since the points \(z_{1},\ldots,z_{n}\) are distinct, the corresponding kernel functions are linearly independent. One way to see this is to use the power-series expansion</p>
+\[
+k_{z_{i}}\left(z\right)=\frac{1}{1-\overline{z_{i}}z}=\sum^{\infty}_{m=0}\overline{z_{i}}^{m}z^{m}.
+\]
+<p>Suppose that</p>
+\[
+\sum^{n}_{i=1}c_{i}k_{z_{i}}=0.
+\]
+<p>Then, as an identity of holomorphic functions on \(\mathbb{D}\),</p>
+\[
+\begin{aligned}0 & =\sum^{n}_{i=1}c_{i}k_{z_{i}}\left(z\right)=\sum^{n}_{i=1}c_{i}\sum^{\infty}_{m=0}\overline{z_{i}}^{m}z^{m}=\sum^{\infty}_{m=0}\left(\sum^{n}_{i=1}c_{i}\overline{z_{i}}^{m}\right)z^{m}.\end{aligned}
+\]
+<p>So, for all \(m\geq0\),</p>
+\[
+\sum^{n}_{i=1}c_{i}\overline{z_{i}}^{m}=0.
+\]
+<p>Taking \(m=0,\ldots,n-1\), this gives</p>
+\[
+\begin{pmatrix}1 & 1 & \cdots & 1\\
+\overline{z_{1}} & \overline{z_{2}} & \cdots & \overline{z_{n}}\\
+\vdots & \vdots &  & \vdots\\
+\overline{z_{1}}^{n-1} & \overline{z_{2}}^{n-1} & \cdots & \overline{z_{n}}^{n-1}
+\end{pmatrix}\begin{pmatrix}c_{1}\\
+c_{2}\\
+\vdots\\
+c_{n}
+\end{pmatrix}=0.
+\]
+<p>It's a Vandermonde matrix. Since the points \(z_{1},\ldots,z_{n}\) are distinct, its determinant is</p>
+\[
+\prod_{1\leq i<j\leq n}\left(\overline{z_{j}}-\overline{z_{i}}\right)\neq0.
+\]
+<p>It follows that</p>
+\[
+c_{1}=\cdots=c_{n}=0.
+\]
+<p>Thus the kernel functions</p>
+\[
+k_{z_{1}},\ldots,k_{z_{n}}
+\]
+<p>are linearly independent.</p>
+
+<p>We may therefore define an operator</p>
+\[
+A\colon\mathcal{M}\longrightarrow\mathcal{M}
+\]
+<p>by</p>
+\[
+Ak_{z_{i}}=\overline{w_{i}}k_{z_{i}}.
+\]
+
+<p>The interpolation problem can now be written as an operator extension problem. We ask whether \(A\) is the restriction of \(M^{*}_{f}\) for some contractive multiplier \(M_{f}\) on \(H^{2}\).</p>
+
+<h3>The Pick matrix as a contractivity condition</h3>
+
+<p>If \(f\) maps \(\mathbb{D}\) into \(\overline{\mathbb{D}}\), then</p>
+\[
+\left\Vert M_{f}\right\Vert =\left\Vert f\right\Vert _{\infty}\leq1.
+\]
+<p>So \(M^{*}_{f}\) is contractive, and its restriction \(A\) must also be contractive.</p>
+
+<p>Let</p>
+\[
+h=\sum^{n}_{i=1}c_{i}k_{z_{i}}\in\mathcal{M}.
+\]
+<p>Using</p>
+\[
+\left\langle k_{z_{i}},k_{z_{j}}\right\rangle =\frac{1}{1-z_{i}\overline{z_{j}}},
+\]
+<p>we get</p>
+\[
+\left\Vert h\right\Vert ^{2}=\sum^{n}_{i,j=1}\overline{c_{i}}c_{j}\frac{1}{1-z_{i}\overline{z_{j}}}.
+\]
+<p>On the other hand,</p>
+\[
+Ah=\sum^{n}_{i=1}c_{i}\overline{w_{i}}k_{z_{i}},
+\]
+<p>and so</p>
+\[
+\left\Vert Ah\right\Vert ^{2}=\sum^{n}_{i,j=1}\overline{c_{i}}c_{j}\frac{w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}.
+\]
+<p>It follows that</p>
+\[
+\left\Vert h\right\Vert ^{2}-\left\Vert Ah\right\Vert ^{2}=\sum^{n}_{i,j=1}\overline{c_{i}}c_{j}\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}.
+\]
+
+<p>Therefore</p>
+\[
+A\text{ is contractive}\Longleftrightarrow\left[\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}\right]^{n}_{i,j=1}\geq0.
+\]
+
+<p>This is the Pick matrix, i.e., the matrix of the quadratic form</p>
+\[
+I_{\mathcal{M}}-A^{*}A.
+\]
+<p>Its positivity says that the action prescribed on the kernel vectors is contractive. This gives one useful formulation of the theorem.</p>
+
+<div class="theorem" style="padding: 15px; border-left: 4px solid #0056b3; margin: 20px 0;">
+  <strong>Theorem (Nevanlinna-Pick).</strong>
+  <p>Let \(z_{1},\ldots,z_{n}\) be distinct points of \(\mathbb{D}\), and let \(w_{1},\ldots,w_{n}\in\mathbb{D}\). The following conditions are equivalent.</p>
+  <ol>
+    <li>There is a holomorphic function \(f\colon\mathbb{D}\longrightarrow\mathbb{D}\) such that \(f\left(z_{i}\right)=w_{i}\).</li>
+    <li id="enu:2">The operator on \(\mathcal{M}=\text{span}\left\{ k_{z_{1}},\ldots,k_{z_{n}}\right\} \) defined by \(Ak_{z_{i}}=\overline{w_{i}}k_{z_{i}}\) is contractive.</li>
+    <li id="enu:3">The Pick matrix is positive semidefinite, i.e., 
+\[
+\left[\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}\right]^{n}_{i,j=1}\geq0.
+\]
+    </li>
+  </ol>
+</div>
+
+<div class="proof" style="margin: 15px 0;">
+  <em>Proof.</em>
+  <p>The equivalence between <a href="#enu:2">(2)</a> and <a href="#enu:3">(3)</a> is the calculation above. An interpolating Schur function gives <a href="#enu:2">(2)</a> because \(A\) is a restriction of \(M^{*}_{f}\).</p>
+  <p>The remaining assertion is the extension theorem. For the Szegő kernel, every contractive action of this form on a finite kernel span comes from a contractive multiplier on the whole Hardy space.</p>
+  <div style="text-align: right;">\(\square\)</div>
+</div>
+
+<h3>The de Branges-Rovnyak kernel</h3>
+
+<p>There is a second way to read the same matrix.</p>
+
+<p>For a holomorphic function \(f\colon\mathbb{D}\to\mathbb{D}\), define</p>
+\[
+c_{f}\left(z,w\right)=\frac{1-f\left(z\right)\overline{f\left(w\right)}}{1-z\overline{w}}.
+\]
+<p>This is the de Branges-Rovnyak kernel associated with \(f\).</p>
+
+<p>Its positivity follows directly from the multiplier inequality. Since \(M_{f}\) is contractive,</p>
+\[
+I-M_{f}M^{*}_{f}\geq0.
+\]
+<p>Moreover,</p>
+\[
+\begin{aligned}\left\langle k_{z},\left(I-M_{f}M^{*}_{f}\right)k_{w}\right\rangle  & =\left\langle k_{z},k_{w}\right\rangle -\left\langle M^{*}_{f}k_{z},M^{*}_{f}k_{w}\right\rangle \\
+ & =\frac{1-f\left(z\right)\overline{f\left(w\right)}}{1-z\overline{w}}.
+\end{aligned}
+\]
+<p>Thus</p>
+\[
+c_{f}\left(z,w\right)=\left\langle k_{z},\left(I-M_{f}M^{*}_{f}\right)k_{w}\right\rangle .
+\]
+
+<p>The RKHS associated with \(c_{f}\) is denoted by</p>
+\[
+\mathcal{H}\left(f\right).
+\]
+
+<p>If \(f\left(z_{i}\right)=w_{i}\), then</p>
+\[
+c_{f}\left(z_{i},z_{j}\right)=\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}.
+\]
+<p>The Pick matrix is then the restriction of the unknown de Branges-Rovnyak kernel to the interpolation nodes.</p>
+
+<p>Let</p>
+\[
+F=\left\{ z_{1},\ldots,z_{n}\right\} 
+\]
+<p>and define a kernel on \(F\) by</p>
+\[
+\Gamma\left(z_{i},z_{j}\right)=\frac{1-w_{i}\overline{w_{j}}}{1-z_{i}\overline{z_{j}}}.
+\]
+<p>The Nevanlinna-Pick theorem can now be restated as follows.</p>
+
+<div class="theorem" style="padding: 15px; border-left: 4px solid #0056b3; margin: 20px 0;">
+  <strong>Theorem.</strong>
+  <p>The interpolation data admit a Schur-class interpolant if and only if the kernel \(\Gamma\) is positive definite.</p>
+  <p>Equivalently, \(\Gamma\) is the restriction to \(F\times F\) of a de Branges-Rovnyak kernel \(c_{f}\) for some Schur function \(f\).</p>
+</div>
+
+<p>This should not be confused with the general problem of extending a positive definite kernel from a finite set. The required extension must have the special form</p>
+\[
+\frac{1-f\left(z\right)\overline{f\left(w\right)}}{1-z\overline{w}}
+\]
+<p>for one holomorphic function \(f\).</p>
+
+<p>The theorem says that positivity of the finite kernel is sufficient for such an extension.</p>
+
+<p>Thus the two RKHS formulations are complementary.</p>
+
+<p>The operator formulation says that the interpolation values prescribe a contractive action on a finite span of Szegő kernels.</p>
+
+<p>The kernel formulation says that the Pick matrix is the proposed finite Gram matrix of the de Branges-Rovnyak space of the interpolant.</p>
+
+<h3>The lurking isometry</h3>
+
+<p>The sufficient part of the Pick condition can be proved using finite-dimensional Hilbert space geometry.</p>
+
+<p>Assume that the Pick matrix is positive semidefinite. Choose a finite-dimensional Hilbert space \(E\) and vectors</p>
+\[
+v_{1},\ldots,v_{n}\in E
+\]
+<p>such that</p>
+\[
+\left\langle v_{i},v_{j}\right\rangle _{E}=\frac{1-w_{j}\overline{w_{i}}}{1-z_{j}\overline{z_{i}}}.
+\]
+<p>The order of the indices is chosen to agree with the convention that inner products are linear in the second variable.</p>
+
+<p>The Gram identity can be rearranged as</p>
+\[
+1+\overline{z_{i}}z_{j}\left\langle v_{i},v_{j}\right\rangle =\overline{w_{i}}w_{j}+\left\langle v_{i},v_{j}\right\rangle .
+\]
+<p>It follows that the two families of vectors</p>
+\[
+\begin{pmatrix}1\\
+z_{i}v_{i}
+\end{pmatrix}\qquad\text{and}\qquad\begin{pmatrix}w_{i}\\
+v_{i}
+\end{pmatrix}
+\]
+<p>in \(\mathbb{C}\oplus E\) have the same Gram matrix.</p>
+
+<p>Therefore the correspondence</p>
+\[
+\begin{pmatrix}1\\
+z_{i}v_{i}
+\end{pmatrix}\longmapsto\begin{pmatrix}w_{i}\\
+v_{i}
+\end{pmatrix}
+\]
+<p>extends linearly to an isometry between their spans. Since \(\mathbb{C}\oplus E\) is finite dimensional, this isometry can be extended to a unitary operator</p>
+\[
+U\colon\mathbb{C}\oplus E\longrightarrow\mathbb{C}\oplus E.
+\]
+
+<p>Write \(U\) in block form as</p>
+\[
+U=\begin{pmatrix}A & B\\
+C & D
+\end{pmatrix}.
+\]
+<p>Here</p>
+\[
+A\in\mathbb{C},\qquad B\colon E\longrightarrow\mathbb{C},\qquad C\colon\mathbb{C}\longrightarrow E,\qquad D\colon E\longrightarrow E.
+\]
+
+<p>The interpolation vectors satisfy</p>
+\[
+U\begin{pmatrix}1\\
+z_{i}v_{i}
+\end{pmatrix}=\begin{pmatrix}w_{i}\\
+v_{i}
+\end{pmatrix}.
+\]
+<p>Comparing the two coordinates gives</p>
+\[
+A+z_{i}Bv_{i}=w_{i}
+\]
+<p>and</p>
+\[
+C+z_{i}Dv_{i}=v_{i}.
+\]
+<p>Since \(U\) is unitary, \(D\) is contractive. Thus</p>
+\[
+I-zD
+\]
+<p>is invertible for every \(z\in\mathbb{D}\). The second identity gives</p>
+\[
+v_{i}=\left(I-z_{i}D\right)^{-1}C.
+\]
+<p>Substitution into the first identity gives</p>
+\[
+w_{i}=A+z_{i}B\left(I-z_{i}D\right)^{-1}C.
+\]
+
+<p>We are therefore led to define</p>
+\[
+f\left(z\right)=A+zB\left(I-zD\right)^{-1}C.
+\]
+<p>This function is holomorphic on \(\mathbb{D}\), and the preceding calculation gives</p>
+\[
+f\left(z_{i}\right)=w_{i}.
+\]
+
+<p>It remains to verify that \(f\) belongs to the Schur class. Put</p>
+\[
+\gamma\left(z\right)=\left(I-zD\right)^{-1}C.
+\]
+<p>The identity</p>
+\[
+C+zD\gamma\left(z\right)=\gamma\left(z\right)
+\]
+<p>shows that</p>
+\[
+U\begin{pmatrix}1\\
+z\gamma\left(z\right)
+\end{pmatrix}=\begin{pmatrix}f\left(z\right)\\
+\gamma\left(z\right)
+\end{pmatrix}.
+\]
+<p>Since \(U\) is unitary,</p>
+\[
+\begin{aligned}1+\overline{z}w\left\langle \gamma\left(z\right),\gamma\left(w\right)\right\rangle  & =\overline{f\left(z\right)}f\left(w\right)+\left\langle \gamma\left(z\right),\gamma\left(w\right)\right\rangle .\end{aligned}
+\]
+<p>Setting \(w=z\) gives</p>
+\[
+1-\left|f\left(z\right)\right|^{2}=\left(1-\left|z\right|^{2}\right)\left\Vert \gamma\left(z\right)\right\Vert ^{2}.
+\]
+<p>Hence</p>
+\[
+\left|f\left(z\right)\right|\leq1
+\]
+<p>for every \(z\in\mathbb{D}\).</p>
+
+<p>The same calculation gives the kernel factorization</p>
+\[
+\frac{1-f\left(z\right)\overline{f\left(w\right)}}{1-z\overline{w}}=\left\langle \gamma\left(w\right),\gamma\left(z\right)\right\rangle .
+\]
+<p>In particular, the de Branges-Rovnyak kernel of the constructed interpolant is positive definite. For any finite collection \(u_{1},\ldots,u_{m}\in\mathbb{D}\) and scalars \(c_{1},\ldots,c_{m}\), one has</p>
+\[
+\begin{aligned}\sum^{m}_{i,j=1}\overline{c_{i}}c_{j}c_{f}\left(u_{i},u_{j}\right) & =\left\Vert \sum^{m}_{i=1}\overline{c_{i}}\gamma\left(u_{i}\right)\right\Vert ^{2}\geq0.\end{aligned}
+\]
+
+<h3>The two-point case</h3>
+
+<p>Suppose that \(z_{1},z_{2},w_{1},w_{2}\in\mathbb{D}\). When \(n=2\), positivity of the Pick matrix reduces to the Schwarz-Pick inequality.</p>
+
+<p>Define the pseudohyperbolic distance by</p>
+\[
+\rho\left(z,w\right)=\left|\frac{z-w}{1-\overline{w}z}\right|.
+\]
+<p>For two interpolation conditions</p>
+\[
+f\left(z_{1}\right)=w_{1},\qquad f\left(z_{2}\right)=w_{2},
+\]
+<p>the Pick matrix is</p>
+\[
+\begin{pmatrix}\dfrac{1-\left|w_{1}\right|^{2}}{1-\left|z_{1}\right|^{2}} & \dfrac{1-w_{1}\overline{w_{2}}}{1-z_{1}\overline{z_{2}}}\\[4mm]
+\dfrac{1-w_{2}\overline{w_{1}}}{1-z_{2}\overline{z_{1}}} & \dfrac{1-\left|w_{2}\right|^{2}}{1-\left|z_{2}\right|^{2}}
+\end{pmatrix}.
+\]
+<p>Its determinant is nonnegative if and only if</p>
+\[
+\rho\left(w_{1},w_{2}\right)\leq\rho\left(z_{1},z_{2}\right).
+\]
+
+<p>If one of the prescribed values lies on the unit circle, positivity of the Pick matrix forces both prescribed values to be equal to the same unimodular constant. The corresponding interpolant is constant.</p>
+
+<p>Thus the two-point Nevanlinna-Pick theorem says that holomorphic self-maps of the disk contract the pseudohyperbolic distance. The general finite interpolation theorem may be viewed as the many-point version of the same kernel inequality.</p>
+
+<h3>What is special about the Szegő kernel</h3>
+
+<p>Let \(\mathcal{H}\) be an arbitrary RKHS with kernel \(K\). If \(f\) is a contractive multiplier of \(\mathcal{H}\), then</p>
+\[
+\left[\left(1-w_{i}\overline{w_{j}}\right)K\left(z_{i},z_{j}\right)\right]^{n}_{i,j=1}\geq0
+\]
+<p>whenever</p>
+\[
+f\left(z_{i}\right)=w_{i}.
+\]
+<p>This follows from the same calculation on the span of the kernel functions.</p>
+
+<p>For a general kernel, this positivity condition need not be sufficient. The Szegő kernel has the Pick property. Positivity gives a global contractive multiplier.</p>
+
+<p>The corresponding statement for matrix-valued interpolation is the complete Pick property. From this, the classical Nevanlinna-Pick theorem is the basic model for interpolation in complete Pick spaces.</p>
+
+<h3>A final kernel factorization</h3>
+
+<p>The de Branges-Rovnyak kernel also appears in the factorization</p>
+\[
+k\left(z,w\right)=k\left(f\left(z\right),f\left(w\right)\right)c_{f}\left(z,w\right).
+\]
+<p>If \(c_{f,w}=c_{f}\left(\cdot,w\right)\), this identity gives an isometry</p>
+\[
+V_{f}\colon H^{2}\longrightarrow H^{2}\otimes\mathcal{H}\left(f\right)
+\]
+<p>defined on the Szegő kernel functions by</p>
+\[
+V_{f}k_{w}=k_{f\left(w\right)}\otimes c_{f,w}.
+\]
+<p>Indeed,</p>
+\[
+\begin{aligned}\left\langle V_{f}k_{z},V_{f}k_{w}\right\rangle  & =k\left(f\left(z\right),f\left(w\right)\right)c_{f}\left(z,w\right)=k\left(z,w\right).\end{aligned}
+\]
+
+<p>The Nevanlinna-Pick data prescribe a finite piece of the second kernel in this tensor factorization. The Pick matrix is the proposed Gram matrix of the vectors</p>
+\[
+c_{f,z_{1}},\ldots,c_{f,z_{n}}
+\]
+<p>in the unknown space \(\mathcal{H}\left(f\right)\).</p>
+
+<p>The theorem says that positivity of this finite Gram matrix is enough to produce the Schur function, the de Branges-Rovnyak space, and the global multiplier.</p>
+
+<p>This is why the RKHS formulation makes the classical theorem transparent. The interpolation values prescribe an operator on kernel vectors. Contractivity produces the Pick matrix. The same matrix is the finite restriction of the de Branges-Rovnyak kernel. The lurking isometry then turns that finite Hilbert space data into a holomorphic interpolant.</p>
