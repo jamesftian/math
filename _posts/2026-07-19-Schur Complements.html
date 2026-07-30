@@ -1,0 +1,1462 @@
+---
+layout: post
+title: "Schur Complements, Shorted Operators, and Energy Minimization"
+date: 2026-07-19
+---
+
+<h2>Basic definitions</h2>
+
+<p>Suppose that a matrix or operator is written in block form as</p> 
+\[
+M=\begin{bmatrix}a_{11} &amp; a_{12}\\
+a_{21} &amp; a_{22}
+\end{bmatrix}.
+\]
+<p>Assume that $a_{22}$ is invertible. The Schur complement of $a_{22}$
+in $M$ is</p> 
+\[
+S:=M/a_{22}=a_{11}-a_{12}a^{-1}_{22}a_{21}.
+\]
+
+<p>Here $S$ is the operator that remains after the second group of variables
+has been eliminated. This same elimination appears in several different
+forms. It appears in block Gaussian elimination, in block matrix inversion,
+in the reduction of mechanical or electrical networks, in minimization
+of quadratic energies, and in the construction of transfer functions
+in systems theory.</p>
+
+<h2>Gaussian elimination</h2>
+
+<p>Consider the system of equations</p> 
+\[
+\begin{bmatrix}a_{11} &amp; a_{12}\\
+a_{21} &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}x\\
+y
+\end{bmatrix}=\begin{bmatrix}u\\
+v
+\end{bmatrix}.
+\]
+
+<p>Assume $a_{22}$ is invertible. Then the second equation gives</p> 
+\[
+y=a^{-1}_{22}\left(v-a_{21}x\right).
+\]
+<p>Substituting this into the first equation, we get</p> 
+\begin{gather*}
+a_{11}x+a_{12}a^{-1}_{22}\left(v-a_{21}x\right)=u\\
+\Updownarrow\\
+\underset{S}{\underbrace{\left(a_{11}-a_{12}a^{-1}_{22}a_{21}\right)}}x=u-a_{12}a^{-1}_{22}v.
+\end{gather*}
+<p>So the reduced equation is</p> 
+\[
+Sx=u-a_{12}a^{-1}_{22}v.
+\]
+
+<p>This is the basic meaning of the Schur complement. The variable $y$
+is eliminated, but its effect has not disappeared. Its influence is
+through the correction $-a_{12}a^{-1}_{22}a_{21}$ in the effective
+operator $S$ acting on $x$.</p>
+
+<h2>Block factorizations</h2>
+
+<p>The same calculation is in the factorization</p> 
+\[
+M=\underset{U}{\underbrace{\begin{bmatrix}I &amp; a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}}}\underset{D}{\underbrace{\begin{bmatrix}S &amp; 0\\
+0 &amp; a_{22}
+\end{bmatrix}}}\underset{L}{\underbrace{\begin{bmatrix}I &amp; 0\\
+a^{-1}_{22}a_{21} &amp; I
+\end{bmatrix}}}.
+\]
+<p>This is a block $UDL$ factorization.</p>
+
+<p>To see the relation with elimination, apply the right-hand factor
+$L$ to a vector</p> 
+\[
+\begin{bmatrix}I &amp; 0\\
+a^{-1}_{22}a_{21} &amp; I
+\end{bmatrix}\begin{bmatrix}x\\
+y
+\end{bmatrix}=\begin{bmatrix}x\\
+y+a^{-1}_{22}a_{21}x
+\end{bmatrix}.
+\]
+<p>The corrected second variable is therefore</p> 
+\[
+z=y+a^{-1}_{22}a_{21}x.
+\]
+<p>In the variables $x$ and $z$, the middle factor $D$ acts diagonally</p>
+\[
+\begin{bmatrix}S &amp; 0\\
+0 &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}x\\
+z
+\end{bmatrix}=\begin{bmatrix}Sx\\
+a_{22}z
+\end{bmatrix}.
+\]
+
+<p>The coupling has been moved into the triangular changes of variables.
+The diagonal part contains the effective operator $S$ acting on the
+first variable and the original operator $a_{22}$ acting on the corrected
+second variable.</p>
+
+<p>Equivalently, one may perform a block row operation</p> 
+\[
+\begin{bmatrix}I &amp; -a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}M=\begin{bmatrix}S &amp; 0\\
+a_{21} &amp; a_{22}
+\end{bmatrix}.
+\]
+<p>Applying the same row operation to the right-hand side gives</p> 
+\[
+\begin{bmatrix}S &amp; 0\\
+a_{21} &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}x\\
+y
+\end{bmatrix}=\begin{bmatrix}u-a_{12}a^{-1}_{22}v\\
+v
+\end{bmatrix}.
+\]
+<p>The first row is exactly the reduced equation obtained above.</p>
+
+<h2>Determinants and invertibility</h2>
+
+<p>In finite dimensions, the factorization</p> 
+\[
+\begin{bmatrix}I &amp; -a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}\underset{M}{\underbrace{\begin{bmatrix}a_{11} &amp; a_{12}\\
+a_{21} &amp; a_{22}
+\end{bmatrix}}}=\begin{bmatrix}\underset{S}{\underbrace{a_{11}-a_{12}a^{-1}_{22}a_{21}}} &amp; 0\\
+a_{21} &amp; a_{22}
+\end{bmatrix}
+\]
+<p>immediately gives</p> 
+\[
+\det M=\det(a_{22})\det S.
+\]
+<p>Since $a_{22}$ is assumed invertible, it follows that</p> 
+\[
+M\text{ is invertible}\Longleftrightarrow S\text{ is invertible}.
+\]
+
+
+<h2>Block inverse</h2>
+
+<p>Suppose that both $a_{22}$ and $S=a_{11}-a_{12}a^{-1}_{22}a_{21}$
+are invertible. Starting from</p> 
+\[
+M=\underset{U}{\underbrace{\begin{bmatrix}I &amp; a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}}}\underset{D}{\underbrace{\begin{bmatrix}S &amp; 0\\
+0 &amp; a_{22}
+\end{bmatrix}}}\underset{L}{\underbrace{\begin{bmatrix}I &amp; 0\\
+a^{-1}_{22}a_{21} &amp; I
+\end{bmatrix}}},
+\]
+<p>inverting the three factors gives</p> 
+\begin{align*}
+M^{-1} &amp; =L^{-1}D^{-1}U^{-1}\\
+ &amp; =\begin{bmatrix}I &amp; 0\\
+-a^{-1}_{22}a_{21} &amp; I
+\end{bmatrix}\begin{bmatrix}S^{-1} &amp; 0\\
+0 &amp; a^{-1}_{22}
+\end{bmatrix}\begin{bmatrix}I &amp; -a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}\\
+ &amp; =\begin{bmatrix}S^{-1} &amp; 0\\
+-a^{-1}_{22}a_{21}S^{-1} &amp; a^{-1}_{22}
+\end{bmatrix}\begin{bmatrix}I &amp; -a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}\\
+ &amp; =\begin{bmatrix}S^{-1} &amp; -S^{-1}a_{12}a^{-1}_{22}\\
+-a^{-1}_{22}a_{21}S^{-1} &amp; a^{-1}_{22}+a^{-1}_{22}a_{21}S^{-1}a_{12}a^{-1}_{22}
+\end{bmatrix}.
+\end{align*}
+
+<p>In particular, the upper-left block of $M^{-1}$ is</p> 
+\[
+(M^{-1})_{11}=S^{-1}.
+\]
+
+<p>So the Schur complement is the effective coefficient in the reduced
+equation</p> 
+\[
+Sx=f.
+\]
+<p>The inverse Schur complement is the corresponding solution operator</p>
+\[
+x=S^{-1}f.
+\]
+
+<p>Thus $S$ and $S^{-1}$ describe the same reduced system in opposite
+directions.</p>
+
+<h2>Which variable is the input?</h2>
+
+<p>A possible confusion is that the words input and output are used in
+different ways.</p>
+
+<p>Suppose that</p> 
+\[
+Kx=F.
+\]
+<p>In a mechanical interpretation, $x$ may be a displacement, $F$ an
+applied force, and $K$ a stiffness matrix.</p>
+
+<p>As a linear map, $K$ acts by</p> 
+\[
+x\longmapsto Kx=F.
+\]
+<p>From this point of view, $x$ is the argument of the map and $F$
+is its value.</p>
+
+<p>In an experiment, however, one may prescribe the force $F$ and measure
+the displacement $x$. The experimentally relevant response map is
+then</p> 
+\[
+F\longmapsto K^{-1}F=x.
+\]
+
+<p>The same issue occurs in many settings. A Dirichlet-to-Neumann map
+takes prescribed boundary values to boundary fluxes, while its inverse,
+when it exists, takes boundary fluxes to boundary values. A conductance
+operator takes voltages to currents, while a resistance operator goes
+in the opposite direction.</p>
+
+<p>The words input and output depend on how the system is being used.
+They are not determined solely by which side of an equation a variable
+occupies.</p>
+
+<h2>Boundary and internal variables</h2>
+
+<p>A standard application of the Schur complement is the elimination
+of hidden internal variables.</p>
+
+<p>Consider</p> 
+\[
+\begin{bmatrix}a_{11} &amp; a_{12}\\
+a_{21} &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}x\\
+y
+\end{bmatrix}=\begin{bmatrix}f\\
+0
+\end{bmatrix}.
+\]
+<p>Think of $x$ as a visible boundary variable, $y$ as an internal
+variable, and $f$ as an external force applied only at the boundary.</p>
+
+<p>The internal equation is</p> 
+\[
+a_{21}x+a_{22}y=0.
+\]
+<p>Hence</p> 
+\[
+y=-a^{-1}_{22}a_{21}x
+\]
+<p>The internal variable is not prescribed independently. It adjusts
+in response to the boundary value $x$.</p>
+
+<p>Substituting into the boundary equation gives</p> 
+\[
+Sx=f,\qquad S=a_{11}-a_{12}a^{-1}_{22}a_{21}.
+\]
+
+<p>The Schur complement therefore gives the reduced boundary law</p> 
+\[
+x\longmapsto f=Sx.
+\]
+<p>It describes how much boundary force is required to maintain the boundary
+configuration $x$, after the internal variables have been allowed
+to equilibrate.</p>
+
+<p>If the boundary force is prescribed instead, then one solves</p> 
+\[
+x=S^{-1}f.
+\]
+<p>In that use of the system, the response map is $S^{-1}$.</p>
+
+<p>These terms come from physics and engineering analogies, but they
+have a very clean mathematical meaning in your system. Let's break
+them down using a real-world example: a spring scale (like a hanging
+produce scale at the grocery store).</p>
+
+<p>Imagine a weight hanging from two springs connected in a row:</p> 
+<ol>
+<li>The top spring is attached to your hand at the very top (the boundary
+$x$).</li> 
+<li>The bottom spring connects to the weight at the bottom.</li> 
+<li>The junction where the two springs tie together is tucked inside the
+scale (the internal variable $y$).</li> 
+</ol>
+
+<h3>1. What does “Internal” mean?</h3>
+
+<p>An internal variable ($y$) is a part of the system that you cannot
+directly grab, control, or see from the outside.</p>
+<ul>
+<li>The Boundary ($x$): This is your hand. You can physically pull the
+top of the spring to a specific position $x$. You have direct control
+over it.</li> 
+<li>The Internal variable ($y$): This is the middle junction inside the
+scale casing. You cannot reach in and pull it. It just floats freely
+inside.</li> 
+</ul>
+<p>Mathematically, when you look at the right-hand side of your equation:</p>
+\[
+\begin{bmatrix}a_{11} &amp; a_{12}\\
+a_{21} &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}x\\
+y
+\end{bmatrix}=\begin{bmatrix}f\\
+0
+\end{bmatrix}
+\]
+<p>Notice that the force on the right side for $y$ is exactly $0$.
+This tells you that no external agent is pulling or pushing on $y$.
+It is left entirely alone to do whatever the system forces it to do.</p>
+
+<h3>2. What does “Equilibrate” mean?</h3>
+
+<p>To equilibrate means to settle into a steady, balanced state where
+all the forces acting on the internal part cancel out to zero.</p>
+
+<p>Because the internal junction $y$ is free to move and has no external
+force acting on it ($0$), it will naturally shift until the tension
+from the top spring perfectly balances the tension from the bottom
+spring. It finds its comfort zone.</p>
+
+<p>That balancing act is exactly what the second equation describes:</p>
+\[
+a_{21}x+a_{22}y=0
+\]
+<p>When we solve this for $y$:</p> 
+\[
+y=-a^{-1}_{22}a_{21}x
+\]
+<p>We are saying: <em>“If you move your hand to position $x$,
+the inside junction $y$ will automatically slide to this exact spot
+to keep the internal forces balanced.”</em></p>
+
+<h4>Bringing it together</h4>
+
+<p>It means you pull the boundary $x$, you let the inside mechanism
+$y$ wiggle and settle until it stops moving, and then you measure
+how much total force ($f$) your hand has to exert to hold everything
+still. The Schur complement $S$ is the single math shortcut that
+tells you that final force without making you calculate where the
+inside junction $y$ settled.</p>
+
+<h2>The energy interpretation</h2>
+
+<p>There is another way to see the same construction.</p>
+
+<p>Consider the quadratic energy/form</p> 
+\[
+E\left(x,y\right)=\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle .
+\]
+<p>Expanding $E\left(x,y\right)$ using</p> 
+\[
+M=UDL=\begin{bmatrix}I &amp; a_{12}a^{-1}_{22}\\
+0 &amp; I
+\end{bmatrix}\begin{bmatrix}S &amp; 0\\
+0 &amp; a_{22}
+\end{bmatrix}\begin{bmatrix}I &amp; 0\\
+a^{-1}_{22}a_{21} &amp; I
+\end{bmatrix}
+\]
+<p>gives</p>
+\[
+E\left(x,y\right)=\langle x,Sx\rangle+\left\langle \left(y+a^{-1}_{22}a_{21}x\right),a_{22}\left(y+a^{-1}_{22}a_{21}x\right)\right\rangle .
+\]
+
+<p>Obviously, $M\geq0$ (positive definite) iff $S\geq0$ and $a_{22}\geq0$.</p> 
+
+<p>Assuming $M\geq0$, then $E\left(x,y\right)$ is minimized when</p> 
+\[
+y=-a^{-1}_{22}a_{21}x.
+\]
+<p>Consequently,</p> 
+\[
+\inf_{y}E(x,y)=\langle x,Sx\rangle.
+\]
+
+<p>Thus the Schur complement is the effective energy seen by $x$ after
+the variable $y$ has been allowed to relax. It explains why Schur
+complements arise naturally in mechanics, network theory, finite element
+methods, boundary-value problems, and variational arguments.</p>
+
+<h2>Dynamic systems</h2>
+
+<p>In systems theory, one often begins with differential equations</p> 
+\begin{align*}
+\dot{x}\left(t\right) &amp; =Ax\left(t\right)+Bu\left(t\right),\\
+y\left(t\right) &amp; =Cx\left(t\right)+Du\left(t\right).
+\end{align*}
+
+<p>Here the notation assigns specific roles to the variables.</p>
+
+<p>The vector $x\left(t\right)$ is the internal state. It describes
+information inside the system that evolves with time.</p>
+
+<p>The vector $u\left(t\right)$ is the external input. It is the signal
+applied to the system.</p>
+
+<p>The vector $y\left(t\right)$ is the measured output.</p>
+
+<p>The matrix $A$ governs the internal evolution. The matrix $B$ describes
+how the input enters the state equation. The matrix $C$ describes
+how the internal state contributes to the observed output. The matrix
+$D$ describes a direct contribution from the input to the output.</p>
+
+<p>The goal is to eliminate the hidden state $x\left(t\right)$ and obtain
+a direct relation between $u\left(t\right)$ and $y\left(t\right)$.</p>
+
+<p>Take the Laplace transform. Write</p> 
+\begin{align*}
+X\left(s\right) &amp; =\mathcal{L}\left(x\right)\left(s\right),\\
+U\left(s\right) &amp; =\mathcal{L}\left(u\right)\left(s\right),\\
+Y\left(s\right) &amp; =\mathcal{L}\left(y\right)\left(s\right).
+\end{align*}
+<p>The transform of the derivative is</p> 
+\[
+\mathcal{L}\left(\dot{x}\right)\left(s\right)=sX\left(s\right)-x\left(0\right).
+\]
+<p>Therefore the state equation becomes</p> 
+\begin{gather*}
+sX\left(s\right)-x\left(0\right)=AX\left(s\right)+BU\left(s\right)\\
+\Updownarrow\\
+\left(sI-A\right)X\left(s\right)=BU\left(s\right)+x\left(0\right).
+\end{gather*}
+
+<p>Whenever $\left(sI-A\right)$ is invertible,</p> 
+\[
+X\left(s\right)=\left(sI-A\right)^{-1}BU\left(s\right)+\left(sI-A\right)^{-1}x\left(0\right)
+\]
+
+<p>The output equation becomes</p> 
+\begin{align*}
+Y\left(s\right) &amp; =CX\left(s\right)+DU\left(s\right)\\
+ &amp; =C\left(sI-A\right)^{-1}BU\left(s\right)+DU\left(s\right)+C\left(sI-A\right)^{-1}x\left(0\right)\\
+ &amp; =\underset{G\left(s\right)}{\underbrace{\left(D+C\left(sI-A\right)^{-1}B\right)}}U\left(s\right)+C\left(sI-A\right)^{-1}x\left(0\right).
+\end{align*}
+
+<p>The first term is the response caused by the external input. The second
+term is the response caused by the initial state.</p>
+
+<p>The transfer function $G\left(s\right)$ describes the zero-initial-state
+response, since when $x\left(0\right)=0$,</p> 
+\[
+Y\left(s\right)=G\left(s\right)U\left(s\right).
+\]
+
+<p>For matrix-valued systems, $G\left(s\right)$ is usually called the
+transfer matrix.</p>
+
+<h2>Why the transfer function is a Schur complement</h2>
+
+<p>The transformed equations can be written as one block system</p> 
+\[
+\begin{bmatrix}sI-A &amp; -B\\
+C &amp; D
+\end{bmatrix}\begin{bmatrix}X\left(s\right)\\
+U\left(s\right)
+\end{bmatrix}=\begin{bmatrix}x\left(0\right)\\
+Y\left(s\right)
+\end{bmatrix}.
+\]
+
+<p>For the zero-initial-state problem,</p> 
+\[
+\begin{bmatrix}sI-A &amp; -B\\
+C &amp; D
+\end{bmatrix}\begin{bmatrix}X\left(s\right)\\
+U\left(s\right)
+\end{bmatrix}=\begin{bmatrix}0\\
+Y\left(s\right)
+\end{bmatrix}.
+\]
+
+<p>The first block equation is</p> 
+\begin{gather*}
+\left(sI-A\right)X\left(s\right)-BU\left(s\right)=0\\
+\Updownarrow\\
+X\left(s\right)=\left(sI-A\right)^{-1}BU\left(s\right).
+\end{gather*}
+<p>Substituting into the second block equation gives</p> 
+\[
+Y\left(s\right)=\underset{G\left(s\right)}{\underbrace{\left(D+C\left(sI-A\right)^{-1}B\right)}}U\left(s\right)
+\]
+
+<p>Now compute the Schur complement of the top-left block $\left(sI-A\right)$:</p>
+\[
+D-C\left(sI-A\right)^{-1}\left(-B\right)=D+C\left(sI-A\right)^{-1}B=G\left(s\right).
+\]
+
+<p>Thus the transfer function is the Schur complement obtained by eliminating
+the internal state.</p>
+
+<p>There is no need to invert the Schur complement in this formulation.
+After $X\left(s\right)$ has been eliminated, the remaining equation
+is already</p> 
+\[
+Y\left(s\right)=G\left(s\right)U\left(s\right)
+\]
+<p>The retained variable $U\left(s\right)$ is the designated input,
+and the right-hand side variable $Y\left(s\right)$ is the designated
+output.</p>
+
+<p>This is different from the boundary stiffness equation</p> 
+\[
+Sx=f.
+\]
+<p>If the applied force $f$ is regarded as the input and the displacement
+$x$ as the output, then the response map is</p> 
+\[
+x=S^{-1}f.
+\]
+<p>In the state-space arrangement, however, the block signs and the placement
+of $U\left(s\right)$ and $Y\left(s\right)$ are chosen so that the
+Schur complement itself maps input to output.</p>
+
+<p>There is therefore no general engineering rule saying that a Schur
+complement must be inverted to obtain an input-output map. Whether
+the Schur complement or its inverse is the relevant map depends on
+the variables and on the direction in which the reduced relation is
+being used.</p>
+
+<h2>What if the block is not invertible?</h2>
+
+<p>The standard formula</p> 
+\[
+a_{11}-a_{12}a^{-1}_{22}a_{21}
+\]
+<p>relies on $a_{22}$ being invertible, but in real-world applications,
+this requirement often fails. For instance, a physical stiffness matrix
+might have a kernel corresponding to rigid body motions, and a graph
+Laplacian inherently has constant vectors in its kernel. In infinite-dimensional
+settings, an operator might simply fail to have a closed range.</p>
+
+<p>When this happens, there are a few ways to move forward. We can restrict
+the problem to a subspace where $a_{22}$ is invertible, apply a generalized
+inverse, enforce compatibility conditions, or bypass the matrix algebra
+entirely by defining the reduced object variationally.</p>
+
+<p>Specifically, in the setting of a positive quadratic form, the energy
+expression</p> 
+\[
+x\longmapsto\inf_{y}\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle 
+\]
+<p>remains perfectly meaningful even when the direct algebraic inverse
+breaks down. Because of this, the minimization perspective is often
+viewed as much deeper and more fundamental than the explicit matrix
+formula.</p>
+
+<h2>Shorted operators</h2>
+
+<p>The energy interpretation leads naturally to the notion of a shorted
+operator. The Schur complement and the shorted operator describe the
+same elimination, but from slightly different points of view.</p>
+
+<p>Let</p> 
+\[
+\mathcal{H}=\mathcal{H}_{1}\oplus\mathcal{H}_{2}
+\]
+<p>and suppose that</p> 
+\[
+M=\begin{bmatrix}A &amp; B\\
+B^{*} &amp; D
+\end{bmatrix}\geq0.
+\]
+<p>We want to eliminate the second space $\mathcal{H}_{2}$ and retain
+the effective part of $M$ acting on $\mathcal{H}_{1}$.</p>
+
+<p>If $D$ is invertible, then the usual Schur complement is</p> 
+\[
+S=A-BD^{-1}B^{*}.
+\]
+<p>The corresponding operator on the original space $\mathcal{H}_{1}\oplus\mathcal{H}_{2}$
+is</p> 
+\[
+\begin{bmatrix}S &amp; 0\\
+0 &amp; 0
+\end{bmatrix}.
+\]
+<p>This is the shorted operator of $M$ to the subspace</p> 
+\[
+\mathcal{S}=\mathcal{H}_{1}\oplus\{0\}.
+\]
+
+<p>The terminology comes from electrical network theory. One imagines
+short-circuiting part of a network and asking what effective positive
+operator remains on the part that is retained. For our purposes, the
+important point is that the shorted operator has an order-theoretic
+definition that does not require $D$ to be invertible.</p>
+
+<p>The shorted operator of $M$ to $\mathcal{S}$ is the largest positive
+operator $X$ such that</p> 
+\[
+0\leq X\leq M
+\]
+<p>and</p> 
+\[
+ran\left(X\right)\subseteq\mathcal{S}.
+\]
+<p>Since $X$ is supported on the first summand, it has the form</p> 
+\[
+X=\begin{bmatrix}T &amp; 0\\
+0 &amp; 0
+\end{bmatrix}
+\]
+<p>for some positive operator $T$ on $\mathcal{H}_{1}$.</p>
+
+<p>The inequality $X\leq M$ means that</p> 
+\[
+\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},X\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle \leq\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle 
+\]
+<p>for every $x\in\mathcal{H}_{1}$ and $y\in\mathcal{H}_{2}$. That
+is,</p> 
+\[
+\left\langle x,Tx\right\rangle \leq\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle 
+\]
+<p>for every $y\in\mathcal{H}_{2}$. Taking the infimum over $y$ gives</p>
+\[
+\left\langle x,Tx\right\rangle \leq\inf_{y\in\mathcal{H}_{2}}\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle .
+\]
+
+<p>The largest possible operator $T$ is characterized by</p> 
+\[
+\left\langle x,Tx\right\rangle =\inf_{y\in\mathcal{H}_{2}}\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle .
+\]
+<p>Thus the shorted operator is exactly the operator obtained by minimizing
+out the second variable.</p>
+
+<p>When $D$ is invertible, completing the square gives</p> 
+\begin{align*}
+\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle  &amp; =\left\langle x,(A-BD^{-1}B^{*})x\right\rangle \\
+ &amp; \quad+\left\langle y+D^{-1}B^{*}x,D\left(y+D^{-1}B^{*}x\right)\right\rangle .
+\end{align*}
+<p>The second term is nonnegative and is minimized when</p> 
+\[
+y=-D^{-1}B^{*}x.
+\]
+<p>It follows that</p> 
+\[
+\inf_{y\in\mathcal{H}_{2}}\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},M\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle =\left\langle x,(A-BD^{-1}B^{*})x\right\rangle .
+\]
+<p>Therefore</p> 
+\[
+\mathrm{Sh}_{\mathcal{S}}(M)=\begin{bmatrix}A-BD^{-1}B^{*} &amp; 0\\
+0 &amp; 0
+\end{bmatrix}.
+\]
+
+<p>So the Schur complement is the upper-left block of the shorted operator
+when the block being eliminated is invertible. The shorted operator
+is the more general object because its definition still makes sense
+when $D$ is singular.</p>
+
+<p>This also explains why the variational point of view is more general
+than the formula involving $D^{-1}$. Even when the infimum is not
+attained by a particular $y$, the reduced quadratic form may still
+define a bounded positive operator on $\mathcal{H}_{1}$.</p>
+
+<p>In finite dimensions, one can often write the reduced operator as</p>
+\[
+T=A-BD^{\dagger}B^{*},
+\]
+<p>where $D^{\dagger}$ is the Moore-Penrose inverse. The positivity
+of $M$ provides the necessary compatibility between $B$ and the
+range of $D$. In infinite dimensions, this formula requires more
+care, especially when the range of $D$ is not closed. The variational
+definition avoids these difficulties.</p>
+
+<p>It is also useful to distinguish shorting from compression. Let $P$
+be the orthogonal projection onto $\mathcal{H}_{1}$. The compression
+of $M$ to $\mathcal{H}_{1}$ is simply</p> 
+\[
+PMP\big|_{\mathcal{H}_{1}}=A.
+\]
+<p>This ignores the second variable. By contrast, shorting allows the
+second variable to adjust before the effective operator on $\mathcal{H}_{1}$
+is computed. In the invertible case, it gives</p> 
+\[
+A-BD^{-1}B^{*}.
+\]
+
+<p>Thus compression and shorting answer different questions. Compression
+asks what the upper-left block of the original operator is. Shorting
+asks what positive operator remains on the first space after the second
+variable has been eliminated.</p>
+
+<p>In this sense, the shorted operator is not a separate construction
+from the Schur complement. It is the positive, order-theoretic, and
+variational version of the same elimination procedure.</p>
+
+<h2>What does it mean to short a port?</h2>
+
+<p>The word “shorted” comes from electrical network theory. It means
+short-circuited, not shortened. The main issue is this: in a two-port
+network, $i_{1},i_{2},v_{1},v_{2}$ are not “input” and “output”
+in the usual one-input, one-output sense. They are just the four port
+variables.</p>
+
+<p>A two-port network is a black box with two pairs of terminals: Port
+1 is one pair of terminals, and Port 2 is another pair of terminals.
+Each port has a voltage across it and a current through it. So the
+variables are:</p> 
+<ul>
+<li>$v_{1}$ is the voltage at Port 1;</li> 
+<li>$i_{1}$ is the current at Port 1;</li> 
+<li>$v_{2}$ is the voltage at Port 2;</li> 
+<li>$i_{2}$ is the current at Port 2.</li> 
+</ul>
+<p>Thus, in a two-port setup, both ports have a current and a voltage.
+That does not mean both currents are “inputs” in the usual causal
+sense. When one writes</p> 
+\[
+\begin{bmatrix}v_{1}\\
+v_{2}
+\end{bmatrix}=\begin{bmatrix}A_{11} &amp; A_{12}\\
+A_{21} &amp; A_{22}
+\end{bmatrix}\begin{bmatrix}i_{1}\\
+i_{2}
+\end{bmatrix},
+\]
+<p>this is just a constitutive law for the network. It says that if currents
+$i_{1}$ and $i_{2}$ are present at the two ports, then the resulting
+port voltages are $v_{1}$ and $v_{2}$. This is like a multi-port
+version of $v=Ri$ for a resistor. Here, the network behaves like
+a generalized impedance operator.</p>
+
+<p>The standard convention in network theory is that, at each port, the
+current is defined as positive when it enters the box. So both $i_{1}$
+and $i_{2}$ are simply port currents, one for each port. They are
+not both externally prescribed inputs unless both ports are driven.
+In fact, in the shorting discussion, both are not prescribed.</p>
+
+<p>To short Port 2 means to connect the two terminals of Port 2 by an
+ideal wire. That forces</p> 
+\[
+v_{2}=0.
+\]
+<p>But it does not force $i_{2}=0$. Current may flow through the short,
+which is the whole point. So after shorting Port 2, the condition
+$v_{2}=0$ is imposed, and $i_{2}$ becomes whatever it must be to
+satisfy that condition. Thus $i_{2}$ is not an independent input;
+it is an induced current.</p>
+
+<p>In the shorted-operator situation, the physical experiment consists
+of the following steps:</p> 
+<ul>
+<li>At Port 1, apply a test current $i_{1}$;</li> 
+<li>Port 2 is shorted, so $v_{2}=0$;</li> 
+<li>Solve for the induced current $i_{2}$;</li> 
+<li>Observe the resulting voltage $v_{1}$.</li> 
+</ul>
+<p>So the only externally applied quantity is $i_{1}$. The variable
+$i_{2}$ is determined completely by the constraint $v_{2}=0$. From
+the second row block equation,</p> 
+\[
+v_{2}=A_{21}i_{1}+A_{22}i_{2},
+\]
+<p>the short-circuit condition gives</p> 
+\[
+0=A_{21}i_{1}+A_{22}i_{2}.
+\]
+<p>Assuming that $A_{22}$ is invertible,</p> 
+\[
+i_{2}=-A^{-1}_{22}A_{21}i_{1}.
+\]
+<p>Then the first row block equation,</p> 
+\[
+v_{1}=A_{11}i_{1}+A_{12}i_{2},
+\]
+<p>becomes</p> 
+\[
+v_{1}=\left(A_{11}-A_{12}A^{-1}_{22}A_{21}\right)i_{1}.
+\]
+<p>So the shorted operator is the effective impedance seen at Port 1
+when Port 2 is short-circuited.</p>
+
+<p>To simplify the mental model, one can ignore “input-output systems”
+for a moment and think instead of a resistive device with two accessible
+terminal pairs. Port 1 is where the device is probed, while Port 2
+is an extra terminal pair chosen to be bound together. The core question
+becomes: after Port 2 is shorted, what effective resistance or impedance
+is seen from Port 1? That effective operator is the shorted operator.
+This perspective is much closer to classical network reduction than
+to the usual engineering idea of a transfer function.</p>
+
+<p>This formulation also makes the distinction between compression and
+shorting completely transparent. If Port 2 is left open, no current
+flows through it:</p> 
+\[
+i_{2}=0.
+\]
+<p>Then</p> 
+\[
+v_{1}=A_{11}i_{1}.
+\]
+<p>So the compression $A_{11}$ describes the network when the second
+port is open. If Port 2 is short-circuited, then $v_{2}=0$, the current
+$i_{2}$ is allowed to adjust, and the effective impedance is $A_{11}-A_{12}A^{-1}_{22}A_{21}$.
+Thus,</p> 
+\[
+\begin{aligned}\text{compression} &amp; \longleftrightarrow\text{leave the second port open},\\
+\text{shorting} &amp; \longleftrightarrow\text{short-circuit the second port}.
+\end{aligned}
+\]
+
+<p>Compression ignores the second port by imposing $i_{2}=0$. Shorting
+lets current flow through the second port and imposes $v_{2}=0$.
+So $A_{11}$ means “just look at the first block,” whereas $A_{11}-A_{12}A^{-1}_{22}A_{21}$
+means “let the second port respond under the short-circuit condition.”</p>
+
+<p>This directly explains why, for a positive impedance operator,</p> 
+\[
+A_{11}-A_{12}A^{-1}_{22}A_{21}\leq A_{11}.
+\]
+<p>Leaving the unused port open prevents current from moving through
+that part of the network. Shorting the unused port creates an additional
+parallel path through which current can divert, so the total effective
+resistance or impedance seen at the remaining port can only decrease.</p>
+
+<div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhKEQCKPDhFkuDozyqjHB5ZqwGXulKLR6jxSsLLOHA7dYiKM2mtMf_oJ1MxpseqieUyKeT5bwiZfP65Fv-9RwfFMuj92MEUC8vPiUtdGKo6lhV0rKfqQOJ45snQsSfcLjbyXZvsG0OUuwQBk_jCLyyqc8fraDz7xBDDPkNfNZCoaOKLlKfLpdJCm0c2xQSY/s2984/circuit.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1377" data-original-width="2984" height="298" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhKEQCKPDhFkuDozyqjHB5ZqwGXulKLR6jxSsLLOHA7dYiKM2mtMf_oJ1MxpseqieUyKeT5bwiZfP65Fv-9RwfFMuj92MEUC8vPiUtdGKo6lhV0rKfqQOJ45snQsSfcLjbyXZvsG0OUuwQBk_jCLyyqc8fraDz7xBDDPkNfNZCoaOKLlKfLpdJCm0c2xQSY/w627-h298/circuit.png" width="627" /></a></div>
+
+<!--INSERT EXPORTED TIKZ DIAGRAM IMAGE HERE-->
+<p><em>Caption: A two-port impedance representation and the effective impedance obtained by short-circuiting Port 2.</em></p>
+
+<h2>The square-root projection formula</h2>
+
+<p>Let $R\geq0$ be a bounded positive operator on a Hilbert space $\mathcal{H}$,
+and let $\mathcal{S}\subseteq\mathcal{H}$ be a closed subspace to
+be retained. The shorted operator of $R$ to $\mathcal{S}$ is the
+largest positive operator below $R$ whose range lies in $\mathcal{S}$.</p>
+
+<p>A frequently used formula is</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}PR^{1/2},
+\]
+<p>but what is $P$? It is not usually the orthogonal projection onto
+$\mathcal{S}$. Instead, define</p> 
+\[
+\mathcal{M}=\left\{ h\in\mathcal{H}:R^{1/2}h\in\mathcal{S}\right\} .
+\]
+<p>Then $\mathcal{M}$ is a closed subspace (as the pre-image of $\mathcal{S}$
+under $R^{1/2}$), and $P$ is the orthogonal projection onto $\mathcal{M}$:</p>
+\[
+P=P_{\mathcal{M}}.
+\]
+<p>Thus the precise formula is</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}P_{\mathcal{M}}R^{1/2}.
+\]
+<p>Equivalently,</p> 
+\[
+\mathcal{M}=\left(R^{1/2}\mathcal{S}^{\perp}\right)^{\perp},
+\]
+<p>where the orthogonal complement automatically ignores whether $R^{1/2}\mathcal{S}^{\perp}$
+is closed. Hence one can also write</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}\left(I-P_{\overline{R^{1/2}\mathcal{S}^{\perp}}}\right)R^{1/2}.
+\]
+
+<p>The equivalence relies entirely on two facts: $\mathcal{S}$ is a
+closed subspace, and $R^{1/2}$ is a self-adjoint (symmetric) operator.
+Start with the first definition. A vector $h$ belongs to $\mathcal{M}$
+if and only if</p> 
+\[
+R^{1/2}h\in\mathcal{S}.
+\]
+<p>Because $\mathcal{S}$ is closed, saying a vector is in $\mathcal{S}$
+is exactly the same as saying it is orthogonal to everything in the
+orthogonal complement $\mathcal{S}^{\perp}$. So, $R^{1/2}h\in\mathcal{S}$
+means:</p> 
+\[
+\left\langle R^{1/2}h,y\right\rangle =0\text{ for every }y\in\mathcal{S}^{\perp}.
+\]
+<p>Because $R^{1/2}$ is self-adjoint, the operator can be shifted to
+the other side of the inner product:</p> 
+\[
+\left\langle h,R^{1/2}y\right\rangle =0\text{ for every }y\in\mathcal{S}^{\perp}.
+\]
+<p>This equation states that $h$ must be orthogonal to every single
+vector of the form $R^{1/2}y$, where $y$ comes from $\mathcal{S}^{\perp}$.
+In other words, $h$ is orthogonal to the entire set $R^{1/2}\mathcal{S}^{\perp}$.</p>
+
+<p>The collection of all vectors orthogonal to a set is simply the orthogonal
+complement of that set. Therefore, the condition is exactly equivalent
+to:</p> 
+\[
+h\in\left(R^{1/2}\mathcal{S}^{\perp}\right)^{\perp}.
+\]
+<p>So the set of vectors that $R^{1/2}$ maps into $\mathcal{S}$ is
+exactly the orthogonal complement of the image of $\mathcal{S}^{\perp}$
+under $R^{1/2}$.</p>
+
+<p>The cleanest explanation for why this formula appears comes from the
+energy interpretation already established. Suppose that $x\in\mathcal{S}$.
+The goal is to retain $x$ and allow a vector</p> 
+\[
+y\in\mathcal{S}^{\perp}
+\]
+<p>to adjust. The reduced energy is</p> 
+\[
+\inf_{y\in\mathcal{S}^{\perp}}\left\langle x+y,R\left(x+y\right)\right\rangle .
+\]
+<p>Since $R\geq0$,</p> 
+\[
+\left\langle x+y,R\left(x+y\right)\right\rangle =\left\Vert R^{1/2}\left(x+y\right)\right\Vert ^{2}.
+\]
+<p>Therefore</p> 
+\begin{align*}
+\inf_{y\in\mathcal{S}^{\perp}}\left\langle x+y,R\left(x+y\right)\right\rangle  &amp; =\inf_{y\in\mathcal{S}^{\perp}}\left\Vert R^{1/2}x+R^{1/2}y\right\Vert ^{2}\\
+ &amp; =\text{dist}\left(R^{1/2}x,\overline{R^{1/2}\mathcal{S}^{\perp}}\right)^{2}.
+\end{align*}
+<p>In taking the infimum, the vectors $R^{1/2}y$, with $y\in\mathcal{S}^{\perp}$,
+remove the component of $R^{1/2}x$ that lies in</p> 
+\[
+\overline{R^{1/2}\mathcal{S}^{\perp}}.
+\]
+<p>If $R^{1/2}\mathcal{S}^{\perp}$ is not closed, this component may
+only be approximated arbitrarily well rather than cancelled by a single
+choice of $y$. What remains is its orthogonal projection onto</p> 
+\[
+\mathcal{M}=\left(R^{1/2}\mathcal{S}^{\perp}\right)^{\perp}.
+\]
+<p>Thus</p> 
+\[
+\inf_{y\in\mathcal{S}^{\perp}}\left\langle x+y,R\left(x+y\right)\right\rangle =\left\Vert P_{\mathcal{M}}R^{1/2}x\right\Vert ^{2}.
+\]
+<p>Since $P_{\mathcal{M}}$ is an orthogonal projection,</p> 
+\[
+\left\Vert P_{\mathcal{M}}R^{1/2}x\right\Vert ^{2}=\left\langle x,R^{1/2}P_{\mathcal{M}}R^{1/2}x\right\rangle .
+\]
+<p>This is exactly why</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}P_{\mathcal{M}}R^{1/2}.
+\]
+
+<p>There is a useful way to read what the three factors in the expression</p>
+\[
+R^{1/2}P_{\mathcal{M}}R^{1/2}
+\]
+<p>are doing. The rightmost $R^{1/2}$ moves the vector into the geometry
+of the $R$-energy, since</p> 
+\[
+\left\langle h,Rh\right\rangle =\left\Vert R^{1/2}h\right\Vert ^{2}.
+\]
+<p>The projection $P_{\mathcal{M}}$ removes the part that can be absorbed
+or approximated by changing the eliminated variable. The leftmost
+$R^{1/2}$ brings the resulting quadratic form back to an operator
+on the original Hilbert space. So this is not just an arbitrary positive
+sandwich. It is an ordinary orthogonal projection, but performed after
+passing to the square-root coordinates determined by $R$.</p>
+
+<p>It is also important to clarify why $P$ is not simply $P_{\mathcal{S}}$.
+It would be tempting to write</p> 
+\[
+R^{1/2}P_{\mathcal{S}}R^{1/2}.
+\]
+<p>That is generally not the shorted operator. The reason is that $P_{\mathcal{S}}$
+projects onto $\mathcal{S}$ before accounting for the geometry introduced
+by $R^{1/2}$. The correct projection is onto</p> 
+\[
+\mathcal{M}=\left\{ h:R^{1/2}h\in\mathcal{S}\right\} .
+\]
+<p>This guarantees that</p> 
+\[
+R^{1/2}P_{\mathcal{M}}R^{1/2}h\in\mathcal{S}
+\]
+<p>for every $h\in\mathcal{H}$. So the projection depends on both $R$
+and the retained subspace $\mathcal{S}$. If $R$ is invertible, then</p>
+\[
+\mathcal{M}=R^{-1/2}\mathcal{S},
+\]
+<p>and the formula becomes</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}P_{R^{-1/2}\mathcal{S}}R^{1/2}.
+\]
+<p>This is a frequently cited finite-dimensional version.</p>
+
+<p>To see how this becomes the Schur complement, take</p> 
+\[
+\mathcal{H}=\mathcal{H}_{1}\oplus\mathcal{H}_{2},\text{ }\mathcal{S}=\mathcal{H}_{1}\oplus\left\{ 0\right\} ,
+\]
+<p>and write</p> 
+\[
+R=\begin{bmatrix}A &amp; B\\
+B^{*} &amp; D
+\end{bmatrix}\geq0.
+\]
+<p>The shorted operator $R_{\mathcal{S}}$ is supported purely on the
+first summand, so its block structure must be</p> 
+\[
+R_{\mathcal{S}}=\begin{bmatrix}T &amp; 0\\
+0 &amp; 0
+\end{bmatrix}.
+\]
+<p>The link between the projection formula and the matrix blocks is the
+quadratic form. In this block setting, vectors in $\mathcal{S}$ have
+the form $\begin{bmatrix}x\\
+0
+\end{bmatrix}$, and vectors in $\mathcal{S}^{\perp}$ have the form $\begin{bmatrix}0\\
+y
+\end{bmatrix}$. The earlier energy derivation established that the quadratic form
+of the square-root projection operator is precisely the infimum over
+the orthogonal complement:</p> 
+\[
+\left\langle \begin{bmatrix}x\\
+0
+\end{bmatrix},R^{1/2}P_{\mathcal{M}}R^{1/2}\begin{bmatrix}x\\
+0
+\end{bmatrix}\right\rangle =\inf_{y\in\mathcal{H}_{2}}\left\langle \begin{bmatrix}x\\
+y
+\end{bmatrix},R\begin{bmatrix}x\\
+y
+\end{bmatrix}\right\rangle .
+\]
+<p>If $D$ is invertible, completing the square on the right-hand side
+explicitly evaluates this infimum as</p> 
+\[
+\left\langle x,\left(A-BD^{-1}B^{*}\right)x\right\rangle .
+\]
+<p>Because both operators act solely on the $\mathcal{H}_{1}$ block
+and yield identical values for their quadratic forms on every vector
+$x$, the operators themselves must be identical on that block. Therefore,
+$T=A-BD^{-1}B^{*}$, which enforces the matrix identity:</p> 
+\[
+R^{1/2}P_{\mathcal{M}}R^{1/2}=\begin{bmatrix}A-BD^{-1}B^{*} &amp; 0\\
+0 &amp; 0
+\end{bmatrix}.
+\]
+<p>So</p> 
+\[
+R^{1/2}P_{\mathcal{M}}R^{1/2}
+\]
+<p>is the intrinsic Hilbert-space formula, while</p> 
+\[
+A-BD^{-1}B^{*}
+\]
+<p>is the nonzero upper-left block of the exact same shorted operator
+when the eliminated block is invertible.</p>
+
+<h2>Radon-Nikodym derivatives</h2>
+
+<p>This is exactly Douglas' lemma, but one has to distinguish the Douglas
+contraction from the Radon-Nikodym derivative. Let</p> 
+\[
+0\leq A\leq R.
+\]
+<p>Apply Douglas' lemma to $A^{1/2}$ and $R^{1/2}$. Since</p> 
+\[
+\left(A^{1/2}\right)^{*}A^{1/2}=A\leq R=\left(R^{1/2}\right)^{*}R^{1/2},
+\]
+<p>there is a contraction $C$ such that</p> 
+\[
+A^{1/2}=CR^{1/2}.
+\]
+<p>Consequently,</p> 
+\[
+A=\left(CR^{1/2}\right)^{*}\left(CR^{1/2}\right)=R^{1/2}C^{*}CR^{1/2}.
+\]
+<p>Therefore the Radon-Nikodym derivative is</p> 
+\[
+\boxed{\frac{dA}{dR}=C^{*}C.}
+\]
+<p>So Douglas gives the square root of the derivative:</p> 
+\[
+\frac{dA}{dR}=C^{*}C,
+\]
+<p>not generally $C$ itself. On the support space</p> 
+\[
+\mathcal{H}_{R}=\left(\ker\left(R\right)\right)^{\perp},
+\]
+<p>the positive contraction $C^{*}C$ is uniquely determined by</p> 
+\[
+A=R^{1/2}\left(C^{*}C\right)R^{1/2}.
+\]
+
+<p>For the shorted operator. Now take</p> 
+\[
+A=R_{\mathcal{S}}.
+\]
+<p>It has already been established that</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}P_{\mathcal{M}}R^{1/2},
+\]
+<p>where, on the support of $R$,</p> 
+\[
+\mathcal{M}=\left\{ h:R^{1/2}h\in\mathcal{S}\right\} .
+\]
+<p>Comparing with the Douglas representation gives</p> 
+\[
+C^{*}C=P_{\mathcal{M}}.
+\]
+<p>Hence</p> 
+\[
+\boxed{\frac{dR_{\mathcal{S}}}{dR}=P_{\mathcal{M}}.}
+\]
+<p>Thus the reduced Douglas contraction $C$ is a partial isometry whose
+initial projection is</p> 
+\[
+C^{*}C=P_{\mathcal{M}}.
+\]
+<p>It need not itself equal $P_{\mathcal{M}}$. That is the precise reconciliation.</p>
+
+<p>The invertible case. When $R$ is invertible, the Douglas contraction
+can be written explicitly:</p> 
+\[
+C=A^{1/2}R^{-1/2}.
+\]
+<p>Then</p> 
+\[
+C^{*}C=R^{-1/2}AR^{-1/2}.
+\]
+<p>Therefore</p> 
+\[
+\frac{dA}{dR}=R^{-1/2}AR^{-1/2}.
+\]
+<p>For $A=R_{\mathcal{S}}$,</p> 
+\[
+R^{-1/2}R_{\mathcal{S}}R^{-1/2}=P_{R^{-1/2}\mathcal{S}}.
+\]
+<p>So in this case,</p> 
+\[
+C^{*}C=P_{R^{-1/2}\mathcal{S}}.
+\]
+<p>Again, $C$ itself is generally not the projection; its modulus is:</p>
+\[
+\left|C\right|=\left(C^{*}C\right)^{1/2}=P_{R^{-1/2}\mathcal{S}}.
+\]
+<p>Hence the Douglas contraction has polar decomposition</p> 
+\[
+C=UP_{R^{-1/2}\mathcal{S}}
+\]
+<p>for a suitable partial isometry $U$.</p>
+
+<p>Another way to see Douglas directly. Starting with</p> 
+\[
+R_{\mathcal{S}}=R^{1/2}P_{\mathcal{M}}R^{1/2},
+\]
+<p>set</p> 
+\[
+X=P_{\mathcal{M}}R^{1/2}.
+\]
+<p>Then</p> 
+\[
+X^{*}X=R^{1/2}P_{\mathcal{M}}R^{1/2}=R_{\mathcal{S}},
+\]
+<p>whereas</p> 
+\[
+R=\left(R^{1/2}\right)^{*}R^{1/2}.
+\]
+<p>The inequality</p> 
+\[
+X^{*}X\leq\left(R^{1/2}\right)^{*}R^{1/2}
+\]
+<p>is precisely the form of Douglas' lemma for $X^{*}X\leq Y^{*}Y$,
+and the factorization is visibly</p> 
+\[
+X=P_{\mathcal{M}}R^{1/2}.
+\]
+<p>Here the Douglas contraction is literally $P_{\mathcal{M}}$, because
+the factor $X=P_{\mathcal{M}}R^{1/2}$ was chosen, rather than the
+canonical positive factor $R^{1/2}_{\mathcal{S}}$.</p>
+
+<p>This explains the apparent discrepancy: factoring the positive square
+root</p> 
+\[
+R^{1/2}_{\mathcal{S}}=CR^{1/2}
+\]
+<p>gives a partial isometry-type contraction $C$, with</p> 
+\[
+C^{*}C=P_{\mathcal{M}};
+\]
+<p>factoring the nonpositive square-root factor</p> 
+\[
+P_{\mathcal{M}}R^{1/2}
+\]
+<p>gives the contraction $P_{\mathcal{M}}$ directly. So everything is
+consistent. The exact statement is</p> 
+\[
+\boxed{\frac{dR_{\mathcal{S}}}{dR}=C^{*}C=P_{\mathcal{M}},}
+\]
+<p>where $C$ is the reduced Douglas solution of</p> 
+\[
+R^{1/2}_{\mathcal{S}}=CR^{1/2}.
+\]
+
+
+<h2>Dirichlet-to-Neumann operators and Schur complements</h2>
+
+<p>The connection is very direct:</p> 
+<blockquote>
+A Dirichlet-to-Neumann operator is often a Schur complement obtained
+by eliminating the interior variables and retaining the boundary variables. 
+</blockquote>
+<p>The cleanest place to see this is a finite resistor network or a discretized
+elliptic equation. Suppose the variables are divided into boundary
+values $u_{B}$ and interior values $u_{I}$. Write the Laplacian
+or stiffness matrix in block form:</p> 
+\[
+L=\begin{bmatrix}L_{BB} &amp; L_{BI}\\
+L_{IB} &amp; L_{II}
+\end{bmatrix}.
+\]
+<p>The vector</p> 
+\[
+\begin{bmatrix}u_{B}\\
+u_{I}
+\end{bmatrix}
+\]
+<p>records the potential at the boundary and interior nodes. Applying
+$L$ gives the corresponding currents or forces:</p> 
+\[
+\begin{bmatrix}f_{B}\\
+f_{I}
+\end{bmatrix}=\begin{bmatrix}L_{BB} &amp; L_{BI}\\
+L_{IB} &amp; L_{II}
+\end{bmatrix}\begin{bmatrix}u_{B}\\
+u_{I}
+\end{bmatrix}.
+\]
+<p>Here:</p> 
+<ul>
+<li>$u_{B}$ is the prescribed boundary potential;</li> 
+<li>$u_{I}$ is the unknown interior potential;</li> 
+<li>$f_{B}$ is the resulting boundary current;</li> 
+<li>$f_{I}$ is the current injected at the interior nodes.</li> 
+</ul>
+<p>For the Dirichlet problem, $u_{B}$ is prescribed and the interior
+is required to be source-free:</p> 
+\[
+f_{I}=0.
+\]
+<p>Thus the interior equation is</p> 
+\[
+L_{IB}u_{B}+L_{II}u_{I}=0.
+\]
+<p>Assuming $L_{II}$ is invertible,</p> 
+\[
+u_{I}=-L^{-1}_{II}L_{IB}u_{B}.
+\]
+<p>Now substitute this into the boundary equation:</p> 
+\[
+f_{B}=L_{BB}u_{B}+L_{BI}u_{I}.
+\]
+<p>This yields</p> 
+\[
+f_{B}=\left(L_{BB}-L_{BI}L^{-1}_{II}L_{IB}\right)u_{B}.
+\]
+<p>Therefore the Dirichlet-to-Neumann operator is</p> 
+\[
+\Lambda=L_{BB}-L_{BI}L^{-1}_{II}L_{IB}.
+\]
+<p>That is exactly the Schur complement of $L_{II}$ in $L$. Depending
+on whether boundary current is taken to flow into or out of the network,
+one may instead obtain the negative of this operator. The Schur-complement
+mechanism is the same.</p>
+
+<p>For a connected resistor network with a nonempty boundary set, $L_{II}$
+is invertible. More generally, it is enough that every connected component
+of the network meet the boundary.</p>
+
+<p><strong>Why it is called Dirichlet-to-Neumann.</strong> The word “Dirichlet”
+refers to prescribing the value of the function on the boundary:</p> 
+\[
+u|_{\partial\Omega}=g.
+\]
+<p>The word “Neumann” refers to the boundary flux or normal derivative:</p>
+\[
+\partial_{\nu}u|_{\partial\Omega}.
+\]
+<p>So the Dirichlet-to-Neumann map takes</p> 
+\[
+\text{boundary value}\longmapsto\text{boundary flux}.
+\]
+<p>In the finite network model, this is exactly</p> 
+\[
+u_{B}\longmapsto f_{B}.
+\]
+<p>The boundary potentials are the Dirichlet data, and the boundary currents
+are the Neumann data.</p>
+
+<p><strong>The PDE version.</strong> Consider, for example, the elliptic equation</p>
+\[
+-\nabla\cdot(a\nabla u)+qu=0\qquad\text{in }\Omega,
+\]
+<p>with prescribed boundary value</p> 
+\[
+u|_{\partial\Omega}=g.
+\]
+<p>Assume that $\Omega$ is a bounded Lipschitz domain, that $a$ is
+bounded, symmetric, and uniformly elliptic, and that the corresponding
+Dirichlet problem is uniquely solvable. For example, one may assume
+that $q\geq0$.</p>
+
+<p>Let $u_{g}$ be the solution. The Dirichlet-to-Neumann operator is</p>
+\[
+\Lambda g=\nu\cdot a\nabla u_{g}\big|_{\partial\Omega},
+\]
+<p>up to the sign convention used for the outward normal. In the standard
+weak formulation, it acts as</p> 
+\[
+\Lambda:H^{1/2}(\partial\Omega)\longrightarrow H^{-1/2}(\partial\Omega).
+\]
+<p>Conceptually, the function is again divided into:</p> 
+<ul>
+<li>boundary data $g$;</li> 
+<li>an interior function determined by solving the PDE.</li> 
+</ul>
+<p>The interior function is eliminated by solving the interior equation.
+What remains is an operator acting only on the boundary data. That
+reduced boundary operator is the infinite-dimensional analogue of
+the Schur complement.</p>
+
+<p>The formula may not literally be written as</p> 
+\[
+A-BD^{-1}B^{*}
+\]
+<p>unless one has chosen a suitable block decomposition and function
+spaces, but the mechanism is the same.</p>
+
+<p><strong>The energy interpretation.</strong> This also fits perfectly with
+the section on quadratic energy. Let the energy be</p> 
+\[
+\mathcal{E}(u)=\int_{\Omega}\left(\nabla u\cdot a\nabla u+q|u|^{2}\right)dx.
+\]
+<p>Under the assumptions above, for a prescribed boundary value $g$,
+the solution $u_{g}$ minimizes the energy among all functions having
+boundary trace $g$:</p> 
+\[
+\mathcal{E}(u_{g})=\inf\left\{ \mathcal{E}(u):u|_{\partial\Omega}=g\right\} .
+\]
+<p>The reduced boundary energy is then</p> 
+\[
+\mathcal{E}(u_{g})=\left\langle \Lambda g,g\right\rangle _{H^{-1/2}(\partial\Omega),H^{1/2}(\partial\Omega)}.
+\]
+<p>So the Dirichlet-to-Neumann operator is the operator associated with
+the energy that remains after the interior variables have been minimized
+out. That is exactly the variational meaning of a Schur complement
+or shorted operator.</p>
+
+<p><strong>The resistor-network picture.</strong> The resistor-network version
+is especially concrete.</p> 
+<ul>
+<li>Prescribe voltages on the boundary nodes.</li> 
+<li>Let the interior voltages adjust so that Kirchhoff's current law holds
+at every interior node.</li> 
+<li>Measure the currents entering the network through the boundary nodes.</li> 
+</ul>
+<p>The map</p> 
+\[
+\text{boundary voltages}\longmapsto\text{boundary currents}
+\]
+<p>is the Dirichlet-to-Neumann map. If the full network Laplacian is</p>
+\[
+L=\begin{bmatrix}L_{BB} &amp; L_{BI}\\
+L_{IB} &amp; L_{II}
+\end{bmatrix},
+\]
+<p>then</p> 
+\[
+\Lambda=L_{BB}-L_{BI}L^{-1}_{II}L_{IB}.
+\]
+<p>This same operation is also called Kron reduction in network theory.</p>
+
+<p><strong>Compression is not the Dirichlet-to-Neumann map.</strong> If $L$
+is simply compressed to the boundary space, the result is</p> 
+\[
+L_{BB}.
+\]
+<p>But that ignores the fact that the interior voltages respond to the
+boundary values. The actual boundary operator is</p> 
+\[
+L_{BB}-L_{BI}L^{-1}_{II}L_{IB}.
+\]
+<p>So, just as before:</p> 
+\[
+\text{compression}\longleftrightarrow\text{ignore the interior},
+\]
+<p>while</p> 
+\[
+\text{Schur complement}\longleftrightarrow\text{solve the interior problem and substitute it back}.
+\]
+<p>The Dirichlet-to-Neumann map is the second one.</p>
+
+<p><strong>Relation to the shorted operator.</strong> For a positive stiffness
+or Laplacian operator, the reduced boundary energy is</p> 
+\[
+\inf_{u_{I}}\left\langle \begin{bmatrix}u_{B}\\
+u_{I}
+\end{bmatrix},L\begin{bmatrix}u_{B}\\
+u_{I}
+\end{bmatrix}\right\rangle .
+\]
+<p>In the finite network or discretized setting, the operator associated
+with this reduced quadratic form is precisely the shorted operator
+to the boundary coordinate space. When $L_{II}$ is invertible, its
+nonzero boundary block is</p> 
+\[
+L_{BB}-L_{BI}L^{-1}_{II}L_{IB}.
+\]
+<p>In the continuum PDE setting, the boundary trace space is not literally
+a coordinate subspace of the interior energy space. One must first
+choose a suitable lifting of the boundary data or use a quotient-form
+description. The Dirichlet-to-Neumann map is nevertheless the corresponding
+boundary reduction of the energy.</p>
+
+<p>So in the positive setting, the three descriptions are the same construction
+viewed from different directions:</p> 
+\begin{align*}
+\text{Schur complement} &amp; :\quad\text{block elimination},\\
+\text{shorted operator} &amp; :\quad\text{positive order and energy minimization},\\
+\text{Dirichlet-to-Neumann map} &amp; :\quad\text{boundary value to boundary flux}.
+\end{align*}
+<p>The main qualification is that one should not say that every Dirichlet-to-Neumann
+operator is literally a finite block-matrix Schur complement. In PDEs,
+it is generally an infinite-dimensional boundary operator. But it
+is the same elimination mechanism, and under discretization or an
+appropriate operator decomposition, it becomes an actual Schur complement.</p>
