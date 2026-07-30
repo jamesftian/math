@@ -1,0 +1,11 @@
+title: "James's Math Notes"
+description: "Notes on function theory, operator theory, and related mathematics"
+url: "https://jamesftian.github.io"
+baseurl: "/math"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+
+permalink: /:year/:month/:day/:title/
