@@ -1,0 +1,246 @@
+---
+layout: post
+title: "A rational deformation of the monomial basis of the Hardy space"
+date: 2026-07-29
+---
+
+<p>The Hardy space $H^{2}$ has the familiar orthonormal basis 
+\[
+1,z,z^{2},z^{3},\ldots.
+\]
+Here is a one-parameter family of rational orthonormal bases that reduces to the monomial basis when the parameter is zero.</p>
+
+<p>Fix $0\leq r<1$, and consider the degree-two Blaschke product 
+\[
+f_{r}\left(z\right)=z\frac{z-r}{1-rz}.
+\]
+We write 
+\[
+\mathbb{N}_{0}=\left\{ 0,1,2,\ldots\right\} .
+\]
+For every finite set $E\subseteq\mathbb{N}_{0}$, define 
+\[
+\psi_{r,E}\left(z\right)=\left(1-r^{2}\right)^{\left|E\right|/2}\prod_{j\in E}\frac{f^{\circ j}_{r}\left(z\right)}{1-rf^{\circ j}_{r}\left(z\right)},
+\]
+where $f^{\circ0}_{r}\left(z\right)=z$, and the empty product is understood to be $1$.</p>
+
+<div style="margin: 1.5em 0; padding: 15px; border-left: 4px solid #3b82f6; background-color: transparent;">
+    <strong>Theorem.</strong>
+    <p>The family 
+    \[
+    \left\{ \psi_{r,E}:E\subseteq\mathbb{N}_{0},\ E\text{ finite}\right\} 
+    \]
+    is an orthonormal basis of $H^{2}$.</p>
+    <p>More specifically, for every $n\geq1$, 
+    \[
+    \left\{ \psi_{r,E}:E\subseteq\left\{ 0,\ldots,n-1\right\} \right\} 
+    \]
+    is an orthonormal basis of 
+    \[
+    H^{2}\ominus f^{\circ n}_{r}H^{2}.
+    \]
+    When $r=0$, this is the usual monomial basis.</p>
+</div>
+
+<p>The first few functions are 
+\[
+1,\qquad\sqrt{1-r^{2}}\frac{z}{1-rz},\qquad\sqrt{1-r^{2}}\frac{f_{r}\left(z\right)}{1-rf_{r}\left(z\right)},\qquad\left(1-r^{2}\right)\frac{z}{1-rz}\frac{f_{r}\left(z\right)}{1-rf_{r}\left(z\right)}.
+\]
+There is no visible reason from these formulas that the functions should be orthogonal. The explanation comes from an elementary decomposition of the Hardy space associated with an inner function.</p>
+
+<h3>The two basic functions</h3>
+
+<p>Put 
+\[
+b_{r}\left(z\right)=\frac{z-r}{1-rz},
+\]
+so that 
+\[
+f_{r}=zb_{r}.
+\]
+For an inner function $\theta$, write 
+\[
+K_{\theta}=H^{2}\ominus\theta H^{2}.
+\]
+The usual product decomposition 
+\[
+K_{\theta\varphi}=K_{\theta}\oplus\theta K_{\varphi}
+\]
+gives 
+\[
+K_{f_{r}}=K_{z}\oplus zK_{b_{r}}.
+\]
+The space $K_{z}$ is spanned by the constant function $1$, while $K_{b_{r}}$ is spanned by 
+\[
+\frac{\sqrt{1-r^{2}}}{1-rz}.
+\]
+It follows that 
+\[
+u_{0}\left(z\right)=1,\qquad u_{1}\left(z\right)=\sqrt{1-r^{2}}\frac{z}{1-rz}
+\]
+form an orthonormal basis of $K_{f_{r}}$.</p>
+
+<p>These two functions generate the whole basis.</p>
+
+<h3>Words in two functions</h3>
+
+<p>The standard decomposition 
+\[
+H^{2}=\bigoplus^{\infty}_{m=0}f^{m}_{r}K_{f_{r}}
+\]
+shows that 
+\[
+\left\{ u_{k}f^{m}_{r}:k\in\left\{ 0,1\right\} ,\ m\geq0\right\} 
+\]
+is an orthonormal basis of $H^{2}$.</p>
+
+<p>Define 
+\[
+S_{k}h\left(z\right)=u_{k}\left(z\right)h\left(f_{r}\left(z\right)\right),\qquad k\in\left\{ 0,1\right\} .
+\]
+Since 
+\[
+S_{k}z^{m}=u_{k}f^{m}_{r},
+\]
+the operators $S_{0}$ and $S_{1}$ are isometries with orthogonal ranges, and their ranges together span $H^{2}$.</p>
+
+<p>We may therefore repeat the construction. For every $n\geq1$, the functions 
+\[
+S_{\alpha_{0}}S_{\alpha_{1}}\cdots S_{\alpha_{n-1}}z^{m},\qquad\alpha_{j}\in\left\{ 0,1\right\} ,\quad m\geq0,
+\]
+form an orthonormal basis of $H^{2}$.</p>
+
+<p>A direct calculation gives 
+\[
+S_{\alpha_{0}}S_{\alpha_{1}}\cdots S_{\alpha_{n-1}}z^{m}=\left(\prod^{n-1}_{j=0}u_{\alpha_{j}}\left(f^{\circ j}_{r}\left(z\right)\right)\right)\left(f^{\circ n}_{r}\left(z\right)\right)^{m}.
+\]
+Write 
+\[
+w_{\alpha}\left(z\right)=\prod^{n-1}_{j=0}u_{\alpha_{j}}\left(f^{\circ j}_{r}\left(z\right)\right).
+\]
+The resulting orthonormal basis is 
+\[
+\left\{ w_{\alpha}\left(f^{\circ n}_{r}\right)^{m}:\alpha\in\left\{ 0,1\right\} ^{n},\ m\geq0\right\} .
+\]</p>
+
+<p>The functions with $m\geq1$ span 
+\[
+f^{\circ n}_{r}H^{2}.
+\]
+Indeed, 
+\[
+w_{\alpha}\left(f^{\circ n}_{r}\right)^{m}=f^{\circ n}_{r}w_{\alpha}\left(f^{\circ n}_{r}\right)^{m-1},
+\]
+and the functions on the right after the factor $f^{\circ n}_{r}$ is removed form an orthonormal basis of $H^{2}$. It follows that the functions with $m=0$, 
+\[
+\left\{ w_{\alpha}:\alpha\in\left\{ 0,1\right\} ^{n}\right\} ,
+\]
+form an orthonormal basis of 
+\[
+H^{2}\ominus f^{\circ n}_{r}H^{2}.
+\]</p>
+
+<p>Because $u_{0}=1$, a word $\alpha=\left(\alpha_{0},\ldots,\alpha_{n-1}\right)$ is determined by the set 
+\[
+E_{\alpha}=\left\{ j:\alpha_{j}=1\right\} .
+\]
+Substituting the formula for $u_{1}$ gives 
+\[
+w_{\alpha}\left(z\right)=\left(1-r^{2}\right)^{\left|E_{\alpha}\right|/2}\prod_{j\in E_{\alpha}}\frac{f^{\circ j}_{r}\left(z\right)}{1-rf^{\circ j}_{r}\left(z\right)}=\psi_{r,E_{\alpha}}\left(z\right).
+\]
+This proves the finite-level statement.</p>
+
+<h3>Completeness</h3>
+
+<p>It remains to see that the finite-level spaces fill all of $H^{2}$.</p>
+
+<p>Since 
+\[
+f_{r}\left(z\right)=zb_{r}\left(z\right),
+\]
+we have 
+\[
+f^{\circ\left(n+1\right)}_{r}\left(z\right)=f^{\circ n}_{r}\left(z\right)b_{r}\left(f^{\circ n}_{r}\left(z\right)\right).
+\]
+Thus 
+\[
+f^{\circ\left(n+1\right)}_{r}H^{2}\subseteq f^{\circ n}_{r}H^{2},
+\]
+and hence the spaces 
+\[
+H^{2}\ominus f^{\circ n}_{r}H^{2}
+\]
+form an increasing sequence.</p>
+
+<p>The iterates $f^{\circ n}_{r}$ converge locally uniformly to zero. To see this, fix $0<\rho<1$. Since 
+\[
+\left|b_{r}\left(z\right)\right|<1
+\]
+for $z\in\mathbb{D}$, we have 
+\[
+q_{\rho}=\max_{\left|z\right|\leq\rho}\left|b_{r}\left(z\right)\right|<1.
+\]
+Moreover, 
+\[
+\left|f_{r}\left(z\right)\right|=\left|z\right|\left|b_{r}\left(z\right)\right|\leq\left|z\right|.
+\]
+It follows by induction that 
+\[
+\left|f^{\circ n}_{r}\left(z\right)\right|\leq q^{n}_{\rho}\left|z\right|,\qquad\left|z\right|\leq\rho.
+\]</p>
+
+<p>Now suppose that 
+\[
+h\in\bigcap_{n\geq1}f^{\circ n}_{r}H^{2}.
+\]
+For every $n$, write 
+\[
+h=f^{\circ n}_{r}h_{n}.
+\]
+Multiplication by an inner function is an isometry, so 
+\[
+\left\Vert h_{n}\right\Vert _{H^{2}}=\left\Vert h\right\Vert _{H^{2}}.
+\]
+The point-evaluation estimate for $H^{2}$ gives 
+\[
+\left|h\left(z\right)\right|\leq\left|f^{\circ n}_{r}\left(z\right)\right|\frac{\left\Vert h\right\Vert _{H^{2}}}{\sqrt{1-\left|z\right|^{2}}}.
+\]
+Letting $n$ tend to infinity gives $h\left(z\right)=0$ for every $z\in\mathbb{D}$. Therefore 
+\[
+\bigcap_{n\geq1}f^{\circ n}_{r}H^{2}=\left\{ 0\right\} .
+\]
+Consequently, 
+\[
+\overline{\bigcup_{n\geq1}\left(H^{2}\ominus f^{\circ n}_{r}H^{2}\right)}=H^{2}.
+\]
+The functions $\psi_{r,E}$, with $E$ finite, therefore form an orthonormal basis of $H^{2}$.</p>
+
+<h3>Binary digits and the monomial basis</h3>
+
+<p>The indexing by finite subsets has a simple interpretation. For a nonnegative integer $N$, write its binary expansion as 
+\[
+N=\sum_{j\in E_{N}}2^{j}.
+\]
+We may then index the basis by the nonnegative integers by setting
+\[
+\psi_{r,N}=\psi_{r,E_{N}}.
+\]</p>
+
+<p>When $r=0$, 
+\[
+f_{0}\left(z\right)=z^{2}
+\]
+and hence 
+\[
+f^{\circ j}_{0}\left(z\right)=z^{2^{j}}.
+\]
+Therefore 
+\[
+\psi_{0,E}\left(z\right)=\prod_{j\in E}z^{2^{j}}=z^{\sum_{j\in E}2^{j}}.
+\]
+In the integer indexing, 
+\[
+\psi_{0,N}\left(z\right)=z^{N}.
+\]</p>
+
+<p>Thus the ordinary monomial basis is the $r=0$ member of this family. For $r>0$, the binary digits remain, but each power $z^{2^{j}}$ is replaced by the same rational factor evaluated along the orbit of $f_{r}$.</p>
